@@ -14,13 +14,18 @@
         <form>
             <label for="email">Email:</label>
             <!-- Direktivet v-bind är one way data bound -->
-            <input type="email" :value="email">
+            <input type="email" :value="email"><br>
             <!-- Direktivet v-model är two way bound -->
             <input type="text" v-model="name">
             <button type="submit">Submit</button>
         </form>
 
-        <button>Visa/Göm</button>
+        <!-- Händelsedirektivet heter v-on -->
+        <br><button v-on:click="state += 1" >Next</button>
+        <!-- Shorthand för händelsedirektivet är @ -->
+        <br><button @click="state -= 1" >Back</button>
+        <!-- v-show är ett direktiv för display:none toggle -->
+        <p v-show="isVisible">{{ name }}</p>
         <!-- Conditional v-if är praktisk för att växla mellan grafik -->
         <input type="text" v-if="state == 1" :value="email">
         <!-- State management med v-else-if och v-else -->
