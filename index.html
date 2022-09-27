@@ -10,22 +10,14 @@
 </head>
 <body>
     <div id="app" v-cloak>
-        {{ message }}
-        <signupform></signupform>
-        <signupform></signupform>
-        <signupform></signupform>
-
-        <!-- Händelsedirektivet heter v-on -->
-        <br><button v-on:click="state += 1" >Next</button>
-        <!-- Shorthand för händelsedirektivet är @ -->
-        <br><button @click="state -= 1" >Back</button>
-        <!-- v-show är ett direktiv för display:none toggle -->
-        <p v-show="isVisible">{{ message }}</p>
-        <!-- Conditional v-if är praktisk för att växla mellan grafik -->
-        <input type="text" v-if="state == 1" :value="email">
-        <!-- State management med v-else-if och v-else -->
-        <p v-else-if="state == 2">Är du säker att du vill skicka formuläret</p>
-        <p v-else>Tack för att du skickat formuläret</p>
+      <!-- Komponentform -->
+      <blog-post title="Statisk egenskap" content="Mitt första inlägg"></blog-post>
+      <blog-post title="Olika rubriker" content="1+2, detta är inte JS"></blog-post>
+      <!-- Ett blogginlägg -->
+      <article>
+        <h1>Min första rubrik</h1>
+        <p>Mitt första blogginlägg</p>
+      </article>
     </div>
 
 <script>
@@ -36,27 +28,17 @@
       return {
         message: 'Hello Vue!',
         email: "dennis@bistrom.fi",
-        state: 1,
-        isVisible: true
       }
     }
   })
-  
-  // Definiera komponenter
-  app.component('signupform', {
-    // Andra parametern är ett objekt, här skriver vi funktionaliteten
-    template: "<form><input type='text' v-model='name'><button type='submit' @click.prevent='processForm'>Submit</button></form>",
-    data: function () {
-      return  {
-        name: "Dennis B"
-      }
-    },
-    methods: {
-      processForm: function(event) {
-        // Signupgform komponenten behöver inte lagra name i globala app utan kan hålla koll på den själv
-        alert("Submitted! Tack för visat intresse " + this.name);
-      }
-    }
+
+  // Blogartikelkomponent
+  app.component('blog-post', {
+    template: `<article>
+                <h1>{{title}}</h1>
+                <p>{{content}}</p>
+              </article>`,
+    props: ['title','content']
   })
 
   app.mount('#app')
