@@ -11,22 +11,16 @@
 <body>
     <div id="app" v-cloak>
         {{ message }}
-        <form>
-            <label for="email">Email:</label>
-            <!-- Direktivet v-bind är one way data bound -->
-            <input type="email" :value="email"><br>
-            <!-- Direktivet v-model är two way bound -->
-            <input type="text" v-model="name">
-            <!-- Event modifiers på händelser är praktiska -->
-            <button type="submit" @click.prevent="processForm">Submit</button>
-        </form>
+        <signupform></signupform>
+        <signupform></signupform>
+        <signupform></signupform>
 
         <!-- Händelsedirektivet heter v-on -->
         <br><button v-on:click="state += 1" >Next</button>
         <!-- Shorthand för händelsedirektivet är @ -->
         <br><button @click="state -= 1" >Back</button>
         <!-- v-show är ett direktiv för display:none toggle -->
-        <p v-show="isVisible">{{ name }}</p>
+        <p v-show="isVisible">{{ message }}</p>
         <!-- Conditional v-if är praktisk för att växla mellan grafik -->
         <input type="text" v-if="state == 1" :value="email">
         <!-- State management med v-else-if och v-else -->
@@ -37,24 +31,35 @@
 <script>
   const { createApp } = Vue
 
-  createApp({
+  const app = createApp({
     data: function() {
       return {
         message: 'Hello Vue!',
         email: "dennis@bistrom.fi",
-        name: "Dennis B",
         state: 1,
         isVisible: true
+      }
+    }
+  })
+  
+  // Definiera komponenter
+  app.component('signupform', {
+    // Andra parametern är ett objekt, här skriver vi funktionaliteten
+    template: "<form><input type='text' v-model='name'><button type='submit' @click.prevent='processForm'>Submit</button></form>",
+    data: function () {
+      return  {
+        name: "Dennis B"
       }
     },
     methods: {
       processForm: function(event) {
-        //event.preventDefault(); // Vue devssarna förstod behovet av shorthand
-        alert("Submitted! Tack för visat intresse " + this.email );
-        this.isVisible = false; // Märk this och syntaxen med likamed =
+        // Signupgform komponenten behöver inte lagra name i globala app utan kan hålla koll på den själv
+        alert("Submitted! Tack för visat intresse " + this.name);
       }
     }
-  }).mount('#app')
+  })
+
+  app.mount('#app')
 </script>
 </body>
 </html>
