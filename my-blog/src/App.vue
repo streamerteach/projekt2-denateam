@@ -1,8 +1,10 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
   <BlogHeader></BlogHeader>
-  <BlogArticle title="Min första statiska prop rubrik" content="Ett inlägg"></BlogArticle>
-  <BlogArticle title="Min andra rubrik" content="Mitt andra inlägg"></BlogArticle>
+  <!-- Dynamiska attribut, vi kan skicka in data till komponenten -->
+  <BlogArticle :title="post.title" :content="post.content"></BlogArticle>
+  <!-- Binding multiple properties using an object-->
+  <BlogArticle v-bind="post"></BlogArticle>
 </template>
 
 <script>
@@ -12,10 +14,17 @@ import BlogArticle from "./components/BlogArticle.vue";
 
 export default {
   name: 'App',
+  data: function() {
+    return {
+      post: {
+        title: "Min första rubrik",
+        content: "Mitt första blogginlägg"
+      }
+    }
+  },
   components: {
     BlogHeader,
     BlogArticle
-
 }
 }
 </script>
