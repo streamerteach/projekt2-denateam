@@ -2,9 +2,13 @@
   <img alt="Vue logo" src="./assets/logo.png">
   <BlogHeader></BlogHeader>
   <!-- Dynamiska attribut, vi kan skicka in data till komponenten -->
-  <BlogArticle :title="post.title" :content="post.content"></BlogArticle>
-  <!-- Binding multiple properties using an object-->
-  <BlogArticle v-bind="post"></BlogArticle>
+  <!--<BlogArticle :title="post.title" :content="post.content"></BlogArticle>-->
+  
+  <!-- Generating components from a data object using v-for -->
+  <div v-for="(post, index) in posts" :key="index">
+    <!-- Binding multiple properties using an object-->
+    <BlogArticle v-bind="post"></BlogArticle>
+  </div>
 </template>
 
 <script>
@@ -16,10 +20,14 @@ export default {
   name: 'App',
   data: function() {
     return {
-      post: {
+      posts: [{
         title: "Min första rubrik",
         content: "Mitt första blogginlägg"
-      }
+      },
+      {
+        title: "Min andra rubrik",
+        content: "Mitt andra blogginlägg"
+      }]
     }
   },
   components: {
