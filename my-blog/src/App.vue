@@ -1,38 +1,37 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <BlogHeader></BlogHeader>
-  <!-- Dynamiska attribut, vi kan skicka in data till komponenten -->
-  <!--<BlogArticle :title="post.title" :content="post.content"></BlogArticle>-->
+  <QuizHeader :currentQ="currentQ" :score="score"></QuizHeader>
   
-  <!-- Generating components from a data object using v-for -->
-  <div v-for="(post, index) in posts" :key="index">
-    <!-- Binding multiple properties using an object-->
-    <BlogArticle v-bind="post"></BlogArticle>
-  </div>
+  <QuizArticle v-bind="questions[currentQ]"></QuizArticle>
+
 </template>
 
 <script>
-import BlogHeader from "./components/BlogHeader.vue";
-import BlogArticle from "./components/BlogArticle.vue";
+import QuizHeader from "./components/QuizHeader.vue";
+import QuizArticle from "./components/QuizArticle.vue";
 
 
 export default {
   name: 'App',
   data: function() {
     return {
-      posts: [{
-        title: "Min första rubrik",
-        content: "Mitt första blogginlägg"
+      currentQ: 0,
+      score: 0,
+      questions: [{
+        question: "Hur går det?",
+        answers: ["Bra","Dåligt","Semi"],
+        correct: 1
       },
       {
-        title: "Min andra rubrik",
-        content: "Mitt andra blogginlägg"
+        question: "Är fem myror fler än fyra elefanter",
+        answers: ["Sant","Falskt"],
+        correct: 1
       }]
     }
   },
   components: {
-    BlogHeader,
-    BlogArticle
+    QuizHeader,
+    QuizArticle
 }
 }
 </script>
