@@ -2,7 +2,7 @@
   <img alt="Vue logo" src="./assets/logo.png">
   <QuizHeader :currentQ="currentQ" :score="score"></QuizHeader>
   
-  <QuizArticle v-bind="questions[currentQ]"></QuizArticle>
+  <QuizArticle @answered="updateScore($event)" v-bind="questions[currentQ]"></QuizArticle>
 
 </template>
 
@@ -27,6 +27,11 @@ export default {
         answers: ["Sant","Falskt"],
         correct: 1
       }]
+    }
+  },
+  methods: {
+    updateScore (points) {
+      alert("Föräldern tog emot emissionen av " + points +" poäng")
     }
   },
   components: {
